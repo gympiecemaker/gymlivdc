@@ -56,74 +56,123 @@ ___________________________________________
 ![to_filotexnhma](https://user-images.githubusercontent.com/78729274/127114109-f4b94ab0-37fa-4fc8-b29d-d4dd0e9dd7a0.jpg)
 __________________________________________
 Ο ΑΛΓΟΡΙΘΜΟΣ
+
 ΑΛΓΟΡΙΘΜΟΣ
+
 CHEK<--0
+
 ΕΝΑΡΞΗ<--ΑΛΗΘΗΣ
+
 ΟΣΟ  ΕΝΑΡΞΗ = ΑΛΗΘΗΣ ΕΠΑΝΕΛΑΒΕ
+
    ΑΝ HC_D9<40 Cm ΤΟΤΕ
+   
         CHEK<--1
+	
         SERVO_0<--0
+	
          Ι<--0
+	 
         ΓΙΑ Ι ΑΠΟ 1 ΜΕΧΡΙ 180 ΕΠΑΝΕΛΑΒΕ
+	
             Servo_0= servo_0+1
+	    
        ΤΕΛΟΣ ΕΠΑΝΑΛΗΨΗΣ
+       
      ΚΑΘΗΣΤΕΡΗΣΗ 3000 milliseconds
+     
      ΓΙΑ Ι ΑΠΟ 1 ΜΕΧΡΙ 180 ΕΠΑΝΕΛΑΒΕ
+     
         Servo_0= servo_0-1
+	
      ΤΕΛΟΣ ΕΠΑΝΑΛΗΨΗΣ
+     
    ΤΕΛΟΣ ΑΝ
+   
   ΑΝ CHEK=1 TOTE
+  
     ΚΑΘΗΣΤΕΡΗΣΗ 500000 milliseconds
+    
     CHEK<--0
+    
   ΤΕΛΟΣ ΑΝ
+  
 ΤΕΛΟΣ ΕΠΑΝΑΛΗΨΗΣ
+
 ΤΕΛΟΣ ΑΛΓΟΡΘΙΘΜΟΥ
+
 
 ___________________________________________
 ### Ο ΚΩΔΙΚΑΣ ΓΙΑ ΤΟΝ ΑΥΤΟΜΑΤΙΣΜΌ ΣΕ MINIBLOG
 
 #include <mbq.h>
+
 #include <PingIRReceiver.h>
 
+
 void setup()
+
 {
 	initBoard();
+	
 	float chek = 0;
+	
 	while(true)
+	
 	{
 		if((hcsrMeasureCM(D9)<40))
+		
 		{
 			chek = 1;
+			
 			DigitalWrite(D13_LED, true);
+			
 			servo0.attachAndWrite(0);
+			
 			for(unsigned int _i=0; _i<(unsigned int)(180); _i++)
+			
 			{
 				servo0.attachAndWrite((servo0.read()+1));
+				
 				delay(15);
 			}
+			
 			delay(3000);
+			
 			for(unsigned int _i=0; _i<(unsigned int)(180); _i++)
+			
 			{
+			
 				servo0.attachAndWrite((servo0.read()-1));
+				
 				delay(15);
 			}
+			
 			DigitalWrite(D13_LED, false);
+			
 		}
 		else
 		{
+		
 		}
 		if(((int)(chek)==(int)(1)))
+		
 		{
+		
 			delay(500000);
 			chek = 0;
+			
 		}
 		else
+		
 		{
+		
 		}
 	}
 }
 
 void loop()
+
 {
 ______________________________________________
 ### ΤΟ ΤΕΛΙΚΟ ΑΠΟΤΕΛΕΣΜΑ
